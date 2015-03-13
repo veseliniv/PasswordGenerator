@@ -1,0 +1,41 @@
+﻿<Window x:Class="PasswordGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:PasswordGenerator.ViewModels"
+        Title="MainWindow" Height="350" Width="525" Background="#FFD9D9E8"
+        WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:PasswordGeneratorViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Settings">
+                <MenuItem Header="Add Master Password" Command="{Binding ShowNewMasterPasswordWindow}"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel>
+            <StackPanel DataContext="{Binding NewPassword}">
+                <Label Name="labelGeneratedPassword" Content="Generated Password:"/>
+                <TextBox Name="textBoxPassword" IsReadOnly="False" Text="{Binding Password}"/>
+                <Label Name="labelEnterSite" Content="Enter Site:"/>
+                <TextBox Name="textBoxSite" Text="{Binding Site}" />
+            </StackPanel>
+            <Grid Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Name="buttonGeneratePassword" Content="Generate Password"/>
+                <Button Grid.Column="1" Name="buttonSavePassword" Content="Save Password" Command="{Binding AddNewPassword}"/>
+                <Button Grid.Column="2" Name="buttonShowPasswords" Content="Show Passwords"/>
+            </Grid>
+            <DataGrid Name="DataGridUsers" ItemsSource="{Binding Passwords}" AutoGenerateColumns="False" CanUserResizeColumns="False" HeadersVisibility="Column">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Site" Binding="{Binding Site}" Width="*"/>
+                    <DataGridTextColumn Header="Password" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </DockPanel>
+</Window>
