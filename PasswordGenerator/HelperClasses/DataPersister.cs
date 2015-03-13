@@ -101,8 +101,21 @@ namespace PasswordGenerator.HelperClasses
         {
             try
             {
-                AddMasterPasswordWindow masterPasswordUserControl = new AddMasterPasswordWindow();
-                masterPasswordUserControl.Show();
+                AddMasterPasswordWindow addMasterPasswordWindow = new AddMasterPasswordWindow();
+                addMasterPasswordWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        internal static void OpenEnterMasterPasswordWindow()
+        {
+            try
+            {
+                EnterMasterPasswordWindow enterMasterPasswordWindow = new EnterMasterPasswordWindow();
+                enterMasterPasswordWindow.Show();
             }
             catch (Exception ex)
             {
