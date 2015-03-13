@@ -83,7 +83,8 @@ namespace PasswordGenerator.HelperClasses
                     context.MasterPassword.InsertOnSubmit(
                             new MasterPassword()
                             {
-                                MasterPassword1 = newMasterPassword.MasterPassword
+                                MasterPassword1 = Convert.ToBase64String(System.Security.Cryptography.MD5.Create().
+                                                    ComputeHash(Encoding.UTF8.GetBytes(newMasterPassword.MasterPassword)))
                             }
                         );
                     context.SubmitChanges();
@@ -95,6 +96,28 @@ namespace PasswordGenerator.HelperClasses
 
                 MessageBox.Show("Master password added successful!!!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        internal static void CheckMasterPassword(MasterPasswordViewModel masterPassword)
+        {
+            string mp=Convert.ToBase64String(System.Security.Cryptography.MD5.Create().
+                                                    ComputeHash(Encoding.UTF8.GetBytes(masterPassword.MasterPassword)));
+            var masterPasswordToCheck =
+                (from mptc in context.MasterPassword
+                where mptc.MasterPassword1 == mp
+                select mptc).FirstOrDefault();
+
+            if(mp==masterPasswordToCheck.MasterPassword1)
+            {
+                AllSavedPasswordsWindow allSavedPasswords = new AllSavedPasswordsWindow();
+                allSavedPasswords.Show();
+            }
+        }
+
+        internal static void ShowEnterMasterPasswordWindow()
+        {
+            EnterMasterPasswordWindow enterMasterPasswordWindow = new EnterMasterPasswordWindow();
+            enterMasterPasswordWindow.Show();
         }
 
         internal static void OpenAddMasterPasswordWindow()

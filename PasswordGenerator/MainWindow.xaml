@@ -16,7 +16,7 @@
         <StackPanel>
             <StackPanel DataContext="{Binding NewPassword}">
                 <Label Name="labelGeneratedPassword" Content="Generated Password:"/>
-                <TextBox Name="textBoxPassword" IsReadOnly="False" Text="{Binding Password,Mode=TwoWay}"/>
+                <TextBox Name="textBoxPassword" IsReadOnly="False" Text="{Binding Password}"/>
                 <Label Name="labelEnterSite" Content="Enter Site:"/>
                 <TextBox Name="textBoxSite" Text="{Binding Site}" />
             </StackPanel>
@@ -28,14 +28,9 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Name="buttonGeneratePassword" Content="Generate Password" Command="{Binding GeneratePassword}" Click="ButtonGeneratePasswordClick"/>
                 <Button Grid.Column="1" Name="buttonSavePassword" Content="Save Password" Command="{Binding AddNewPassword}" IsEnabled="False"/>
-                <Button Grid.Column="2" Name="buttonShowPasswords" Content="Show Passwords"/>
+                <Button Grid.Column="2" Name="buttonShowPasswords" Content="Show Passwords" Command="{Binding ShowEnterMasterPasswordWindow}"/>
             </Grid>
-            <DataGrid Name="DataGridUsers" ItemsSource="{Binding Passwords}" AutoGenerateColumns="False" CanUserResizeColumns="False" HeadersVisibility="Column">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Site" Binding="{Binding Site}" Width="*"/>
-                    <DataGridTextColumn Header="Password" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            
         </StackPanel>
     </DockPanel>
 </Window>

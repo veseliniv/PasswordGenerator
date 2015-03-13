@@ -22,6 +22,8 @@ namespace PasswordGenerator.ViewModels
         private ICommand addNewPasswordCommand;
         private ICommand addNewMasterPasswordCommand;
         private ICommand showNewMasterPasswordWindowCommand;
+        private ICommand checkMasterPasswordCommand;
+        private ICommand showEnterMasterPasswordWindowCommand;
         
         public PasswordGeneratorViewModel()
         {
@@ -115,6 +117,30 @@ namespace PasswordGenerator.ViewModels
                 return this.showNewMasterPasswordWindowCommand;
             }
         }
+
+        public ICommand CheckMasterPassword
+        {
+            get
+            {
+                if (this.checkMasterPasswordCommand == null)
+                {
+                    this.checkMasterPasswordCommand = new RelayCommand(this.HandleCheckMasterPasswordCommand);
+                }
+                return this.checkMasterPasswordCommand;
+            }
+        }
+
+        public ICommand ShowEnterMasterPasswordWindow
+        {
+            get
+            {
+                if (this.showEnterMasterPasswordWindowCommand == null)
+                {
+                    this.showEnterMasterPasswordWindowCommand = new RelayCommand(this.HandleShowEnterMasterPasswordWindowCommand);
+                }
+                return this.showEnterMasterPasswordWindowCommand;
+            }
+        }
         #endregion
 
         private void HandleShowNewMasterPasswordWindowCommand(object obj)
@@ -130,6 +156,16 @@ namespace PasswordGenerator.ViewModels
         private void HandleAddNewPasswordCommand(object obj)
         {
             DataPersister.AddNewPassword(this.NewPassword);         
+        }
+
+        private void HandleCheckMasterPasswordCommand(object obj)
+        {
+            DataPersister.CheckMasterPassword(this.NewMasterPassword);
+        }
+
+        private void HandleShowEnterMasterPasswordWindowCommand(object obj)
+        {
+            DataPersister.ShowEnterMasterPasswordWindow();
         }
     }
 }
