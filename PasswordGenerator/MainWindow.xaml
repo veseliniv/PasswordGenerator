@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:PasswordGenerator.ViewModels"
         Title="MainWindow" Height="350" Width="525" Background="#FFD9D9E8"
-        WindowStyle="None" WindowStartupLocation="CenterScreen">
+        WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:PasswordGeneratorViewModel/>
     </Window.DataContext>
@@ -16,7 +16,7 @@
         <StackPanel>
             <StackPanel DataContext="{Binding NewPassword}">
                 <Label Name="labelGeneratedPassword" Content="Generated Password:"/>
-                <TextBox Name="textBoxPassword" IsReadOnly="False" Text="{Binding Password}"/>
+                <TextBox Name="textBoxPassword" IsReadOnly="False" Text="{Binding Password,Mode=TwoWay}"/>
                 <Label Name="labelEnterSite" Content="Enter Site:"/>
                 <TextBox Name="textBoxSite" Text="{Binding Site}" />
             </StackPanel>
@@ -26,8 +26,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Name="buttonGeneratePassword" Content="Generate Password"/>
-                <Button Grid.Column="1" Name="buttonSavePassword" Content="Save Password" Command="{Binding AddNewPassword}"/>
+                <Button Grid.Column="0" Name="buttonGeneratePassword" Content="Generate Password" Command="{Binding GeneratePassword}" Click="ButtonGeneratePasswordClick"/>
+                <Button Grid.Column="1" Name="buttonSavePassword" Content="Save Password" Command="{Binding AddNewPassword}" IsEnabled="False"/>
                 <Button Grid.Column="2" Name="buttonShowPasswords" Content="Show Passwords"/>
             </Grid>
             <DataGrid Name="DataGridUsers" ItemsSource="{Binding Passwords}" AutoGenerateColumns="False" CanUserResizeColumns="False" HeadersVisibility="Column">

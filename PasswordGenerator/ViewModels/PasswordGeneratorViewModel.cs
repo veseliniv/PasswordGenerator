@@ -22,7 +22,7 @@ namespace PasswordGenerator.ViewModels
         private ICommand addNewPasswordCommand;
         private ICommand addNewMasterPasswordCommand;
         private ICommand showNewMasterPasswordWindowCommand;
-
+        
         public PasswordGeneratorViewModel()
         {
             this.newPassword = new PasswordViewModel();
@@ -129,8 +129,7 @@ namespace PasswordGenerator.ViewModels
         
         private void HandleAddNewPasswordCommand(object obj)
         {
-            DataPersister.AddNewPassword(this.NewPassword);
+            DataPersister.AddNewPassword(this.NewPassword);         
         }
-       
     }
 }
